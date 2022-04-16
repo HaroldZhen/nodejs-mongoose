@@ -1,8 +1,9 @@
+require('dotenv').config()
 const http = require('http')
 const errorHandler = require('./errorHandler')
 const headers = require('./crosHeader')
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/post');
+mongoose.connect(process.env.DB_HOST);
 
 // Model
 const Post = require('./model/PostModel')
