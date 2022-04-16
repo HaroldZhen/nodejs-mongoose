@@ -114,4 +114,4 @@ const requestListener = async (request, res) => {
 }
 
 const server = http.createServer(requestListener)
-server.listen(process.env.PROT || 8080)
+server.listen(process.env.PORT || 8080)
