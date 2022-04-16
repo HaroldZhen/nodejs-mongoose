@@ -20,9 +20,7 @@ const requestListener = async (request, res) => {
         id:_id
     })
     const resourcePosts = (posts) => posts.map((post) => resourcePost(post))
-
-    // posts: GET
-    if (request.url === "/posts" && request.method === "GET") {
+    const findAllPost = async () => {
         const posts = await Post.find()
         res.writeHead(200, headers)
         res.write(JSON.stringify({
@@ -30,6 +28,11 @@ const requestListener = async (request, res) => {
             data: resourcePosts(posts)
         }))
         res.end()
+    }
+
+    // posts: GET
+    if (request.url === "/posts" && request.method === "GET") {
+        await findAllPost()
     } else if (request.url === "/posts" && request.method === "POST") {
         // posts: POST
         request.on('end', async () => {
@@ -55,24 +58,12 @@ const requestListener = async (request, res) => {
     } else if (request.url === "/posts" && request.method === "DELETE") {
         // posts: DELETE ALL
         await Post.deleteMany({})
-        const posts = await Post.find()
-        res.writeHead(200, headers)
-        res.write(JSON.stringify({
-            status: 'success',
-            data: resourcePosts(posts)
-        }))
-        res.end()
+        await findAllPost()
     } else if (request.url.startsWith("/posts/") && request.method === "DELETE") {
         // posts: DELETE One
         const id = request.url.split("/").pop()
         if (await Post.findByIdAndDelete(id)) {
-            const posts = await Post.find()
-            res.writeHead(200, headers)
-            res.write(JSON.stringify({
-                status: 'success',
-                data: resourcePosts(posts)
-            }))
-            res.end()
+            await findAllPost()
         } else {
             errorHandler(res, "刪除失敗：Post找不到該id")
         }
@@ -85,13 +76,7 @@ const requestListener = async (request, res) => {
                 if (await Post.findByIdAndUpdate(id, {
                     title
                 })) {
-                    const posts = await Post.find()
-                    res.writeHead(200, headers)
-                    res.write(JSON.stringify({
-                        status: 'success',
-                        data: resourcePosts(posts)
-                    }))
-                    res.end()
+                    await findAllPost()
                 } else {
                     errorHandler(res, "更新失敗：Post找不到該id")
                 }
