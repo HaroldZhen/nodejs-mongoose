@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "3b0b22ed-776b-48f0-a34d-2a66d6715a90",
+		"name": "Week2 - Posts (Heroku)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://afternoon-badlands-76998.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"afternoon-badlands-76998",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"ken\"\n}"
+				},
+				"url": {
+					"raw": "https://afternoon-badlands-76998.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"afternoon-badlands-76998",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELET ALL",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://afternoon-badlands-76998.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"afternoon-badlands-76998",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELET ROW",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://afternoon-badlands-76998.herokuapp.com/posts/:id",
+					"protocol": "https",
+					"host": [
+						"afternoon-badlands-76998",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH(edit)",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Harold\"\n}"
+				},
+				"url": {
+					"raw": "https://afternoon-badlands-76998.herokuapp.com/posts/:id",
+					"protocol": "https",
+					"host": [
+						"afternoon-badlands-76998",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
