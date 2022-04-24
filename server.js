@@ -15,9 +15,13 @@ const requestListener = async (request, res) => {
         body += chunk
     })
 
-    const resourcePost = ({title, _id}) => ({
-        title,
-        id:_id
+    const resourcePost = ({_id, content,name,image,likes,createdAt }) => ({
+        id:_id,
+        content,
+        name,
+        image,
+        likes,
+        createdAt
     })
     const resourcePosts = (posts) => posts.map((post) => resourcePost(post))
     const findAllPost = async () => {
@@ -37,11 +41,14 @@ const requestListener = async (request, res) => {
         // posts: POST
         request.on('end', async () => {
             try {
-                const {name, content} = JSON.parse(body)
-                if (content) {
+                const {name, content, image} = JSON.parse(body)
+                console.log('name', name)
+                console.log('content', content)
+                if (content && name) {
                     const post = await Post.create({
                         name,
                         content,
+                        image,
                         createdAt: Date.now()
                     })
                     res.writeHead(200, headers)
@@ -51,7 +58,7 @@ const requestListener = async (request, res) => {
                     }))
                     res.end()
                 } else {
-                    errorHandler(res, "title欄位未填寫正確")
+                    errorHandler(res, "content or name欄位未填寫正確")
                 }
             } catch (err) {
                 errorHandler(res, "post新增失敗")
