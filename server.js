@@ -37,10 +37,12 @@ const requestListener = async (request, res) => {
         // posts: POST
         request.on('end', async () => {
             try {
-                const {title} = JSON.parse(body)
-                if (title) {
+                const {name, content} = JSON.parse(body)
+                if (content) {
                     const post = await Post.create({
-                        title,
+                        name,
+                        content,
+                        createdAt: Date.now()
                     })
                     res.writeHead(200, headers)
                     res.write(JSON.stringify({
@@ -71,10 +73,10 @@ const requestListener = async (request, res) => {
         // posts: PATCH One
         request.on('end', async () => {
             try {
-                const {title} = JSON.parse(body)
+                const {content} = JSON.parse(body)
                 const id = request.url.split("/").pop()
                 if (await Post.findByIdAndUpdate(id, {
-                    title
+                    content
                 })) {
                     await findAllPost()
                 } else {
